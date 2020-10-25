@@ -2,13 +2,13 @@
   import axios from "axios";
   import Swal from "sweetalert2";
   const year = new Date();
-
-  let isValid = false;
+  let name = '';
+  let email = '';
 
   function handleSubmit(event) {
     let participant = {
-      name: event.target.name.value,
-      email: event.target.email.value
+      name: name,
+      email: email
     };
 
     let data = {
@@ -27,6 +27,8 @@
           icon: "success",
           confirmButtonText: "Cool"
         });
+        name = '';
+        email = '';
       })
       .catch(function(error) {
 	console.log(error)
@@ -56,24 +58,26 @@
         class="bg-white focus:outline-none focus:shadow-outline border
         border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none
         leading-normal"
+        bind:value={name}
         id="name"
         placeholder="Nome"
-        required />
+        />
       <br />
       <input
         class="bg-white focus:outline-none focus:shadow-outline border
         border-gray-300 rounded-lg py-2 px-4 block w-full appearance-none
         leading-normal"
+        bind:value={email}
         id="email"
         type="email"
         placeholder="Email"
-        required />
+        />
       <br />
       <button
         class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold
         hover:text-white py-2 px-4 border border-blue-500
         hover:border-transparent rounded"
-        disabled={isValid}>
+        disabled={(name === '' && email === '')}>
         Conferma
       </button>
     </form>
